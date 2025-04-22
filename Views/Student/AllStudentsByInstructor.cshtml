@@ -1,0 +1,97 @@
+﻿@using GoEdu.ViewModel
+@model StudentsCoursesVM
+
+@{
+    ViewData["Title"] = "AllStudentsByInstructor";
+    SelectList Courses = new SelectList(Model.Courses, "ID", "Name");
+}
+
+<div class="container mx-auto mt-10 px-4">
+    <!-- Heading Section -->
+    <h1 class="text-center text-4xl font-extrabold text-indigo-800 mb-8">جميع الطلاب</h1>
+
+    <!-- Filter Form Section -->
+    <form asp-action="FilterStudentsByCourse" asp-controller="Student" method="post" class="w-full sm:w-1/2 p-4 bg-indigo-50 rounded-lg shadow-lg mx-auto flex items-center">
+        <div class="form-group mb-8 w-full">
+            <label asp-for="CourseId" class="block text-lg font-semibold text-gray-700">اختر الكورس</label>
+            <select asp-for="CourseId" asp-items="Courses" class="form-control mt-2 w-full p-3 border border-indigo-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 h-full">
+                <option value="0">كل الكورسات</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn py-3 px-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition ease-in-out duration-300 w-1/5 h-full ml-4 mr-6">
+            بحث
+        </button>
+    </form>
+
+    <!-- Student Count Section -->
+    <div class="bg-indigo-100 text-indigo-800 p-4 rounded-lg shadow-lg text-center mb-6 mt-6">
+        <strong>عدد الطلاب: @Model.Students.Count()</strong>
+    </div>
+
+    <!-- Students Table Section -->
+    <div class="overflow-x-auto shadow-lg rounded-lg bg-white">
+        <table class="table-auto w-full text-center border-collapse">
+            <thead class="bg-indigo-900 text-white">
+                <tr>
+                    <th class="px-6 py-3 text-lg">ID</th>
+                    <th class="px-6 py-3 text-lg">الاسم</th>
+                    <th class="px-6 py-3 text-lg">البريد الإلكتروني</th>
+                    <th class="px-6 py-3 text-lg">هاتف الطالب</th>                    
+                    <th class="px-6 py-3 text-lg">الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Students)
+                {
+                    <tr class="border-t border-gray-200 hover:bg-indigo-50 transition duration-200">
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.ID)</td>
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.StudentPhone)</td>
+                        
+                        <td class="px-6 py-3">
+                            @Html.ActionLink("تفاصيل", "Details", new { id = item.ID }, new { @class = "text-indigo-600 hover:text-indigo-800 transition duration-200" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Tailwind & Custom Styles -->
+<style>
+    .btn {
+        background-color: #4CAF50;
+        border-radius: 8px;
+        color: white;
+        padding: 12px 24px;
+        transition: background-color 0.3s;
+    }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+    .btn-outline {
+        background-color: transparent;
+        border: 1px solid #4CAF50;
+        color: #4CAF50;
+    }
+
+        .btn-outline:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+    .table th, .table td {
+        text-align: center;
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
+
+    .table tr:hover {
+        background-color: #f3f4f6;
+    }
+</style>

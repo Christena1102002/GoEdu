@@ -1,0 +1,170 @@
+﻿@* @model AddCourseWithInstructorVM *@
+
+@* @{ *@
+@*     ViewData["Title"] = "تعديل البيانات"; *@
+@* } *@
+
+@* <h2>@ViewData["Title"]</h2> *@
+
+@* <form method="post" asp-action="SaveEdit" asp-controller="Course"> *@
+@*     <input type="hidden" asp-for="CrsID" /> *@
+
+@*     <div class="mb-3 col-md-6"> *@
+@*         <label asp-for="CrsName" class="form-label"></label> *@
+@*         <input asp-for="CrsName" class="form-control" /> *@
+@*         <span asp-validation-for="CrsName" class="text-danger"></span> *@
+@*     </div> *@
+
+@*     <div class="mb-3 col-md-6"> *@
+@*         <label asp-for="CrsPrice" class="form-label"></label> *@
+@*         <input asp-for="CrsPrice" class="form-check form-control" /> *@
+@*         <span asp-validation-for="CrsPrice" class="text-danger"></span> *@
+@*     </div> *@
+
+@*     <div class="mb-3 col-md-6"> *@
+@*         <label asp-for="CrsHours" class="form-label"></label> *@
+@*         <input asp-for="CrsHours" class="form-control"/> *@
+@*         <span asp-validation-for="CrsHours" class="text-danger"></span> *@
+@*     </div> *@
+
+@*     <div class="mb-3 col-md-6"> *@
+@*         <label asp-for="CrsMinDegree" class="form-label"></label> *@
+@*         <input asp-for="CrsMinDegree" class="form-control" /> *@
+@*         <span asp-validation-for="CrsMinDegree" class="text-danger"></span> *@
+@*     </div> *@
+
+@*     <div class="mb-3 col-md-6"> *@
+@*         <label asp-for="CrsStage" class="form-label"></label> *@
+@*         <input value="@Model.CrsStage.GetDisplayName()" class="form-control" readonly/> *@
+@*     </div> *@
+
+@*     <div class="mb-3 col-md-6"> *@
+@*         <label asp-for="CrsLevel" class="form-label"></label> *@
+@*         <input value="@Model.CrsLevel.GetDisplayName()" class="form-control" readonly /> *@
+@*     </div> *@
+
+@*     <div class="mb-3 col-md-6"> *@
+@*         <label asp-for="CrsSemester" class="form-label"></label> *@
+@*         <input value="@Model.CrsSemester.GetDisplayName()" class="form-control" readonly /> *@
+@*     </div> *@
+
+@*     <input type="submit" value="حفظ" class="btn btn-success"> *@
+@*     <a asp-action="Index" class="btn btn-secondary">رجوع</a> *@
+@* </form> *@
+
+@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+@* <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script> *@
+@* <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script> *@
+
+@* @section Scripts { *@
+@*     <partial name="_ValidationScriptsPartial" /> *@
+@* } *@
+
+@model GoEdu.ViewModel.AddCourseWithInstructorVM
+
+@{
+    ViewData["Title"] = "تعديل البيانات";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-5">
+                    <h2 class="mb-4 text-center text-primary fw-bold display-6">@ViewData["Title"]</h2>
+
+                    <form method="post" asp-action="SaveEdit" asp-controller="Course">
+                        <input type="hidden" asp-for="CrsID" />
+
+                        <div class="row g-3">
+                            <!-- حقل اسم الكورس -->
+                            <div class="col-12">
+                                <label asp-for="CrsName" class="form-label fw-semibold">اسم الكورس</label>
+                                <input asp-for="CrsName" class="form-control shadow-sm" />
+                                <span asp-validation-for="CrsName" class="text-danger small"></span>
+                            </div>
+
+                            <!-- حقل السعر -->
+                            <div class="col-12">
+                                <label asp-for="CrsPrice" class="form-label fw-semibold">السعر</label>
+                                <input asp-for="CrsPrice" class="form-control shadow-sm" />
+                                <span asp-validation-for="CrsPrice" class="text-danger small"></span>
+                            </div>
+
+                            <!-- حقل عدد الساعات -->
+                            <div class="col-12">
+                                <label asp-for="CrsHours" class="form-label fw-semibold">عدد الساعات</label>
+                                <input asp-for="CrsHours" class="form-control shadow-sm" />
+                                <span asp-validation-for="CrsHours" class="text-danger small"></span>
+                            </div>
+
+                            <!-- حقل الدرجة الصغرى -->
+                            <div class="col-12">
+                                <label asp-for="CrsMinDegree" class="form-label fw-semibold">الدرجة الصغرى</label>
+                                <input asp-for="CrsMinDegree" class="form-control shadow-sm" />
+                                <span asp-validation-for="CrsMinDegree" class="text-danger small"></span>
+                            </div>
+
+                            <!-- حقل المرحلة التعليمية (قراءة فقط) -->
+                            <div class="col-12">
+                                <label asp-for="CrsStage" class="form-label fw-semibold">المرحلة التعليمية</label>
+                                <input value="@Model.CrsStage.GetDisplayName()" class="form-control shadow-sm" readonly />
+                            </div>
+
+                            <!-- حقل الصف الدراسي (قراءة فقط) -->
+                            <div class="col-12">
+                                <label asp-for="CrsLevel" class="form-label fw-semibold">الصف الدراسي</label>
+                                <input value="@Model.CrsLevel.GetDisplayName()" class="form-control shadow-sm" readonly />
+                            </div>
+
+                            <!-- حقل الفصل الدراسي (قراءة فقط) -->
+                            <div class="col-12">
+                                <label asp-for="CrsSemester" class="form-label fw-semibold">الفصل الدراسي</label>
+                                <input value="@Model.CrsSemester.GetDisplayName()" class="form-control shadow-sm" readonly />
+                            </div>
+
+                        </div>
+
+                        <!-- أزرار الإرسال -->
+                        <div class="d-flex justify-content-between mt-4 gap-3">
+                            <input type="submit" value="حفظ" class="btn btn-success px-4 py-2 shadow-sm w-100 w-md-auto" />
+                            <a asp-action="GetInsCourses" class="btn btn-outline-secondary px-4 py-2 shadow-sm w-100 w-md-auto">رجوع</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for hover effect and shadow -->
+<style>
+    .btn:hover {
+        background-color: #28a745 !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d !important;
+        color: white !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+    }
+
+    .form-control, .form-select {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+    }
+
+    /* Custom CSS for error message */
+    .text-danger {
+        color: #dc3545 !important;
+    }
+</style>

@@ -1,0 +1,113 @@
+﻿@* @model GoEdu.ViewModel.VMInstructorDashBoard *@
+
+@* @{ *@
+@*     ViewData["Title"] = "DashBoard"; *@
+@* } *@
+
+@* <h1>DashBoard</h1> *@
+
+@* <div> *@
+@*     <h4>VMInstructorDashBoard</h4> *@
+@*     <hr /> *@
+@*     <dl class="row"> *@
+@*         <dt class = "col-sm-2"> *@
+@*             @Html.DisplayNameFor(model => model.InstructorId) *@
+@*         </dt> *@
+@*         <dd class = "col-sm-10"> *@
+@*             @Html.DisplayFor(model => model.InstructorId) *@
+@*         </dd> *@
+@*         <dt class = "col-sm-2"> *@
+@*             @Html.DisplayNameFor(model => model.TotalStudents) *@
+@*         </dt> *@
+@*         <dd class = "col-sm-10"> *@
+@*             @Html.DisplayFor(model => model.TotalStudents) *@
+@*         </dd> *@
+@*         <dt class = "col-sm-2"> *@
+@*             @Html.DisplayNameFor(model => model.TotalViews) *@
+@*         </dt> *@
+@*         <dd class = "col-sm-10"> *@
+@*             @Html.DisplayFor(model => model.TotalViews) *@
+@*         </dd> *@
+@*         <dt class = "col-sm-2"> *@
+@*             @Html.DisplayNameFor(model => model.TotalCourses) *@
+@*         </dt> *@
+@*         <dd class = "col-sm-10"> *@
+@*             @Html.DisplayFor(model => model.TotalCourses) *@
+@*         </dd> *@
+@*     </dl> *@
+@* </div> *@
+@* <div> *@
+@*     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) | *@
+@*     <a asp-action="Index">Back to List</a> *@
+@* </div> *@
+@model GoEdu.ViewModel.VMInstructorDashBoard
+
+@{
+    ViewData["Title"] = "InstructorDashboard";
+}
+
+<div class="bg-white p-8 rounded-lg shadow-lg mt-10 max-w-4xl mx-auto">
+    <!-- Title -->
+    <h1 class="text-3xl font-bold text-center text-indigo-800 mb-10">لوحة التحكم</h1>
+
+    <!-- Stats Section -->
+    <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <!-- Total Students -->
+        <div class="bg-indigo-100 p-6 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 flex flex-col justify-center items-center">
+            <h4 class="text-xl font-semibold text-indigo-700 mb-2 text-center">إجمالي عدد الطلاب</h4>
+            <p class="text-3xl font-bold text-indigo-900 text-center">@Html.DisplayFor(model => model.TotalStudents)</p>
+        </div>
+        <!-- Total Views -->
+        <div class="bg-indigo-100 p-6 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 flex flex-col justify-center items-center">
+            <h4 class="text-xl font-semibold text-indigo-700 mb-2 text-center">إجمالي المشاهدات</h4>
+            <p class="text-3xl font-bold text-indigo-900 text-center">@Html.DisplayFor(model => model.TotalStudents)</p>
+        </div>
+        <!-- Total Courses -->
+        <div class="bg-indigo-100 p-6 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 flex flex-col justify-center items-center">
+            <h4 class="text-xl font-semibold text-indigo-700 mb-2 text-center">عدد الكورسات</h4>
+            <p class="text-3xl font-bold text-indigo-900 text-center">@Html.DisplayFor(model => model.TotalCourses)</p>
+        </div>
+    </div>
+
+    <!-- Buttons Section in the same row with space between them -->
+    <div class="flex justify-between mb-8">
+        <a class="px-8 py-4 bg-indigo-600 text-white rounded-lg text-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105 w-full sm:w-auto text-center mr-40"
+           href="@Url.Action("AllStudentsByInstructor", "Student")">عرض الطلاب</a>
+        <a class="px-8 py-4  bg-green-600 text-white rounded-lg text-lg hover:bg-green-700 transition duration-300 transform hover:scale-105 w-full sm:w-auto text-center ml-40"
+           href="@Url.Action("GetInsCourses", "Course")">عرض الكورسات</a>
+    </div>
+
+    <div class="overflow-x-auto bg-white p-6 rounded-lg shadow-md">
+        <div class="flex justify-center">
+            <h4 class="text-2xl font-semibold text-indigo-800 mb-6">أعلى 10 طلاب</h4>
+        </div>
+
+        <table class="min-w-full table-auto border-collapse">
+            <thead>
+                <tr class="bg-indigo-600 text-white">
+                    <th class="px-4 py-2 text-center">الترتيب</th>
+                    <th class="px-4 py-2 text-center">اسم الطالب</th>
+                    <th class="px-4 py-2 text-center">اسم الكورس</th>
+                    <th class="px-4 py-2 text-center">عنوان المحاضرة</th>
+                    <th class="px-4 py-2 text-center">الدرجة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int order = 1;
+                }
+                @foreach (var student in Model.TopTenPerformances)
+                {
+                    <tr class="border-b">
+                        <td class="px-4 py-2 text-center">@order</td>
+                        <td class="px-4 py-2 text-center">@student.StudentName</td>
+                        <td class="px-4 py-2 text-center">@student.CourseName</td>
+                        <td class="px-4 py-2 text-center">@student.LectureTitle</td>
+                        <td class="px-4 py-2 text-center">@student.Grade</td>
+                    </tr>
+                    order++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

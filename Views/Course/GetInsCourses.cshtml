@@ -1,0 +1,244 @@
+﻿@* @model List<CourseWithInstructorVM> *@
+@* @{ *@
+@*     ViewData["Title"] = "GetInsCourses"; *@
+@* } *@
+
+@* <h1>GetInsCourses</h1> *@
+
+
+@* <h1>كورساتي</h1> *@
+
+@* <p><strong>عدد الكورسات:</strong> @ViewData["NumOfCourses"]</p> *@
+@* <p><strong>عدد الطلبة:</strong> @ViewData["NumOfStudents"]</p> *@
+
+@* <a class="btn btn-secondary" asp-action="NewCourse" asp-controller="Course">إضافة</a> *@
+
+@* <table class="table table-hover table-bordered"> *@
+@*     <tr> *@
+@*         <th>ID</th> *@
+@*         <th>اسم الكورس</th> *@
+@*         <th>السعر</th> *@
+@*         <th>عدد الساعات</th> *@
+@*         <th>المرحلة التعليمية</th> *@
+@*         <th>السنة الدراسية</th> *@
+@*         <th>الصف الدراسي</th> *@
+@*         <th>عدد المحاضرات</th> *@
+@*         <th>عدد الطلبة</th> *@
+@*         <th>تعديل</th> *@
+@*         <th>حذف</th> *@
+@*     </tr> *@
+
+@*     @foreach (var item in Model) *@
+@*     { *@
+@*         <tr> *@
+@*             <td>@item.CrsID</td> *@
+@*             <td> *@
+@*                 <a class="btn btn-secondary" asp-action="GetLectures" asp-controller="Lecture" asp-route-id="@item.CrsID">@item.CrsName</a> *@
+@*             </td> *@
+@*             <td>@item.CrsPrice</td> *@
+@*             <td>@item.CrsHours</td> *@
+@*             <td>@item.CrsStage.GetDisplayName()</td> *@
+@*             <td>@item.CrsLevel.GetDisplayName()</td> *@
+@*             <td>@item.CrsSemester.GetDisplayName()</td> *@
+@*             <td>@item.NumOfLecture</td> *@
+@*             <td>@item.NumOfStudent</td> *@
+@*             <td> *@
+@*                 <a class="btn btn-primary" asp-action="Edit" asp-controller="Course" asp-route-id="@item.CrsID">تعديل</a> *@
+@*             </td> *@
+@*             <td> *@
+@*                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" *@
+@*                         onclick="setDeleteId(@item.CrsID)"> *@
+@*                     حذف *@
+@*                 </button> *@
+@*             </td> *@
+@*         </tr> *@
+@*     } *@
+@* </table> *@
+
+
+
+
+@* <script> *@
+@*     function setDeleteId(ID) { *@
+@*         var deleteUrl = "/Course/DeleteCourse/" + ID; *@
+@*         document.getElementById("confirmDeleteBtn").setAttribute("href", deleteUrl); *@
+@*     } *@
+@* </script> *@
+
+
+@* <partial name="_DeletedPartial"></partial> *@
+
+@* <!-- After Added New Course --> *@
+@* @if (TempData["CourseCreated"] != null) *@
+@* { *@
+@*     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert"> *@
+@*         @TempData["CourseCreated"] *@
+@*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+@*     </div> *@
+@* } *@
+@model List<CourseWithInstructorVM>
+@{
+    ViewData["Title"] = "جميع الكورسات";
+}
+
+<div class="container mx-auto px-6 py-8">
+
+    <!-- Header Section -->
+    <!-- Header Section -->
+    <div class="flex flex-col items-center mb-8">
+        <h2 class="text-4xl font-extrabold text-indigo-800 text-center">
+            📘 جميع <span class="text-4xl font-bold" style="color:#f97316">الكورسات</span>
+        </h2>
+    </div>
+
+    <!-- Summary Boxes -->
+    <div class="flex justify-center items-center mt-20 mb-20">
+        <div class="flex w-full justify-evenly px-24 gap-2">
+
+            <!-- عدد الطلبة -->
+            <div class="bg-indigo-900 p-3 rounded-lg shadow-xl text-white text-center transform hover:scale-105 transition duration-300
+            w-full sm:w-1/5 flex flex-col items-center justify-center h-24">
+                <p class="text-xl font-semibold text-white">عدد الطلبة</p>
+                <strong class="text-xl font-semibold text-white">@ViewData["NumOfAllStudent"]</strong>
+            </div>
+
+            <!-- عدد الكورسات -->
+            <div class="bg-indigo-900 p-3 rounded-lg shadow-xl text-white text-center transform hover:scale-105 transition duration-300
+            w-full sm:w-1/5 flex flex-col items-center justify-center h-24">
+                <p class="text-xl font-semibold text-white">عدد الكورسات</p>
+                <strong class="text-xl font-semibold text-white">@ViewData["NumOfCourses"]</strong>
+            </div>
+
+            <!-- زر إضافة كورس -->
+            <a href="@Url.Action("NewCourse", "Course")"
+               class="flex items-center justify-center text-white py-3 px-8 rounded-xl text-xl font-semibold shadow-lg transform transition duration-300 hover:scale-110 hover:shadow-2xl w-full sm:w-1/4"
+               style="background-color: #f97316;">
+                <i class="fa fa-plus mr-2"></i>  إضافة كورس
+            </a>
+        </div>
+    </div>
+
+    <div class="flex justify-center py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+            @foreach (var item in Model)
+            {
+                <div class="bg-white border border-gray-200 rounded-2xl shadow-md p-6 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
+
+                    <!-- صورة الكورس -->
+                    <div class="mb-4 overflow-hidden rounded-xl">
+                        <img src="@item.ImageUrl" alt="صورة الكورس"
+                             class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105" />
+                    </div>
+
+                    <!-- اسم الكورس مع زر التفاصيل -->
+                    <div class="mb-4">
+                        <!-- اسم الكورس -->
+                        <div class="flex justify-center mb-2">
+                            <h2 class="text-xl font-bold text-indigo-700 text-center">@item.CrsName</h2>
+                        </div>
+                    </div>
+
+                    <!-- معلومات الكورس -->
+                    <div class="space-y-1 text-sm text-gray-700 mb-4">
+                        <div class="flex justify-between">
+                            <p>💰 <span class="font-medium">السعر:</span> @item.CrsPrice</p>
+                            <p>⏱ <span class="font-medium">عدد الساعات:</span> @item.CrsHours</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <p>🏫 <span class="font-medium">المرحلة:</span> @item.CrsStage.GetDisplayName()</p>
+                            <p>📚 <span class="font-medium">السنة:</span> @item.CrsLevel.GetDisplayName()</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <p>🎓 <span class="font-medium">الصف الدراسي:</span> @item.CrsSemester.GetDisplayName()</p>
+                            <p>🎥 <span class="font-medium">المحاضرات:</span> @item.NumOfLecture</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <p>👨‍🎓 <span class="font-medium">الطلبة:</span> @item.NumOfStudent</p>
+                        </div>
+                    </div>
+
+                    <!-- أزرار التحكم -->
+                    <div class="flex flex-wrap justify-between gap-2">
+
+                        <!-- زر المحاضرات -->
+                        <a href="@Url.Action("GetLectures", "Lecture", new { id = item.CrsID })"
+                           class="text-white px-4 py-2 rounded-md text-sm hover:bg-green-700 transition w-28 text-center"
+                           style="background-color: #f97316;">
+                            المحاضرات
+                        </a>
+
+                        <!-- زر التعديل -->
+                        <a href="@Url.Action("Edit", "Course", new { id = item.CrsID })"
+                           class="bg-indigo-900 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition w-28 text-center">
+                            تعديل
+                        </a>
+
+                        <!-- زر الحذف -->
+                        <button class="bg-red-500 text-white px-4 py-2 rounded-md text-sm hover:bg-red-600 transition w-28 text-center"
+                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                onclick="setDeleteId(@item.CrsID)">
+                            حذف
+                        </button>
+
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+    <!-- Success Alert -->
+    @if (TempData["CourseCreated"] != null)
+    {
+        <div class="alert alert-success mt-4 p-4 bg-green-100 text-green-700 rounded-lg shadow-lg">
+            ✅ @TempData["CourseCreated"]
+        </div>
+    }
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    هل أنت متأكد من الحذف؟
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <a id="confirmDeleteBtn" href="#" class="btn btn-danger">حذف</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container fixed top-0 right-0 p-3" style="z-index: 1055;">
+        <div id="deleteToast" class="toast flex items-center bg-green-600 text-white rounded-lg shadow-lg p-3 space-x-3" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="flex items-center">
+                <i class="bi bi-check-circle-fill text-2xl"></i>
+                <span class="ml-2 font-semibold">تم الحذف بنجاح!</span> <!-- تعديل الخط ليكون سميكًا -->
+            </div>
+            <button type="button" class="btn-close btn-close-white ml-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if ('@TempData["Deleted"]' !== '') {
+            var toastEl = document.getElementById('deleteToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    });
+</script>
+
+<script>
+    function setDeleteId(ID) {
+        const deleteUrl = "/Course/DeleteCourse/" + ID;
+        document.getElementById("confirmDeleteBtn").setAttribute("href", deleteUrl);
+    }
+</script>
+

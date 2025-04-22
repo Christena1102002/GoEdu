@@ -1,0 +1,49 @@
+﻿@model GoEdu.Models.Student
+@{
+    ViewData["Title"] = "بيانات الطالب";
+}
+
+<div class="w-75 max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-10 p-8 border border-gray-200">
+
+    <!-- الصورة الشخصية -->
+    <div class="flex justify-center mb-6">
+        <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-gray-300 shadow-sm">
+    </div>
+
+    <!-- عنوان -->
+    <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">الصفحة الشخصية</h2>
+
+    <!-- جدول البيانات -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-100">
+                <tr>
+                    <td class="py-3 font-semibold text-gray-700 w-1/3">الاسم</td>
+                    <td class="py-3 text-gray-900">@Html.DisplayFor(model => model.Name)</td>
+                </tr>
+                <tr>
+                    <td class="py-3 font-semibold text-gray-700">العنوان</td>
+                    <td class="py-3 text-gray-900">@Html.DisplayFor(model => model.Address)</td>
+                </tr>
+                <tr>
+                    <td class="py-3 font-semibold text-gray-700">العمر</td>
+                    <td class="py-3 text-gray-900">@Html.DisplayFor(model => model.Age)</td>
+                </tr>
+                <tr>
+                    <td class="py-3 font-semibold text-gray-700">البريد الإلكتروني</td>
+                    <td class="py-3 text-gray-900">@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td class="py-3 font-semibold text-gray-700">رقم الهاتف</td>
+                    <td class="py-3 text-gray-900">@Html.DisplayFor(model => model.StudentPhone)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-8">
+        <a href="@Url.Action("AllStudentsByInstructor", "Student")" class="text-white bg-indigo-600 hover:bg-indigo-700 font-medium py-2 px-6 rounded-lg shadow transition duration-300">
+            رجوع
+        </a>
+    </div>
+</div>

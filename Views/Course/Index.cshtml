@@ -1,0 +1,113 @@
+@model List<Course>
+@{
+    Layout = "_AdvancedLayout";
+}
+
+<div style="flex-direction: column;">
+<section>
+    <div class="search-top mb-5 " style="height:90px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="margin-right:-70px">
+                    <div class="search-form ">
+                        <form asp-controller="Course" asp-action="Index" method="get">
+                            <div class="sf-type d-flex gap-3">
+                                <div class="sf-input flex-grow-1">
+                                    <input type="text" name="searchQuery" class="form-control"
+                                           placeholder="ابحث عن كورس"
+                                           value="@Context.Request.Query["searchQuery"]" />
+                                </div>
+                                <div class="mb-5 sf-submit" style="height:auto">
+                                    <input type="submit" value="🔍 بحث" class="btn btn-primary" style="height: 63px;" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="flex flex-col items-center mb-8">
+    <div class="text-4xl font-extrabold text-indigo-800 text-center">
+        <h2 class="text-4xl font-extrabold text-indigo-800 mb-4">
+            📘 جميع <span class="text-4xl font-bold" style="color:#f97316">الكورسات</span>
+        </h2>
+        <p class="text-gray-600">استعرض كل الكورسات المتنوعة الآن واكتشف المحتوى الذي يناسبك! تبدأ رحلتك التعليمية بكل سهولة</p>
+    </div>
+
+    <div class="flex justify-center py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+            @foreach (var course in Model)
+            {
+                <div class="bg-white border border-gray-200 rounded-2xl shadow-md p-6 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
+                    <div class="mb-4 overflow-hidden rounded-xl">
+                        <img src="@course.ImageUrl" alt="@course.Name"
+                             class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105" />
+                    </div>
+
+                    <div>
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center">
+                                <!-- الزر في أقصى الشمال -->
+                                <div class="flex justify-start">
+                                </div>
+
+                                <!-- اسم الكورس في المنتصف -->
+                                <h2 class="text-xl font-bold text-indigo-700 text-center flex-grow">@course.Name</h2>
+
+                                <!-- التقييم على اليمين -->
+                                <div class="text-left">
+                                    <span class="badge bg-warning text-dark rounded-pill">⭐ 4.2</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="space-y-1 text-sm text-gray-700 mb-4">
+                            <div class="flex justify-between">
+                                <span class="font-medium">⏱ <strong>الساعات:</strong> @course.Hours</span>
+                                <span class="font-medium">💵 <strong>السعر:</strong> $@course.Price</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium">📚 <strong>المستوى:</strong> @course.CourseLevel</span>
+                                <span class="font-medium">👁‍🗨 <strong>أقصى مشاهدات:</strong> @course.MaxViews</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium">👨‍🏫 <strong>المحاضر:</strong>@course.Instructor.Name</span>
+                            </div>
+                            <div class="flex justify-center gap-4">
+                                <!-- زر التفاصيل -->
+                                <a href="@Url.Action("CourseDetails", "Course", new { id = course.ID })"
+                                   class="text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition w-40 text-center"
+                                   style="background-color: #f97316;">
+                                    التفاصيل
+                                </a>
+
+                                <!-- زر قدم الآن -->
+                                <a href="@Url.Action("EnrollInCourse", "Course",new{courseID=course.ID})"
+                                   class="text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition w-40 text-center flex items-center justify-center"
+                                   style="background-color: #f97316;">
+                                    <i class="fa fa-plus ml-2"></i> قدم الآن
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    var filterBy = '@Context.Request.Query["filterBy"]';
+    if (filterBy) {
+        document.getElementById('filterBy').value = filterBy;
+    }
+</script>
+</div>

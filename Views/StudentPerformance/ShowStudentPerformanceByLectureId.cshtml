@@ -1,0 +1,38 @@
+﻿@model IEnumerable<GoEdu.ViewModel.VMStudentPerformance>
+
+@{
+    ViewData["Title"] = "ShowStudentPerformanceByInstructorId";
+}
+
+<div asp-action="FilterStudentsByCourse" asp-controller="Student" method="post" class="container mx-auto mt-10 px-4">
+
+    <!-- Heading Section -->
+    <h1 class="text-center text-4xl font-extrabold text-indigo-800 mb-4">درجات الطلاب</h1>
+
+    <div class="bg-indigo-100 p-4 rounded-lg mb-8 shadow-sm flex flex-wrap justify-between text-right text-indigo-900 text-lg font-semibold">
+        <span><span class="font-bold text-indigo-700">الكورس:</span> @ViewData["CourseName"]</span>
+        <span><span class="font-bold text-indigo-700">عنوان المحاضرة:</span> @ViewData["LectureName"]</span>
+        <span><span class="font-bold text-indigo-700">تاريخ المحاضرة:</span>@ViewData["CourseName"]</span>
+    </div>
+
+    <!-- Students Table Section -->
+    <div class="overflow-x-auto shadow-lg rounded-lg bg-white">
+        <table class="table-auto w-full text-center border-collapse">
+            <thead class="bg-indigo-900">
+                <tr>
+                    <th class="px-6 py-3 text-lg text-white">الاسم</th>
+                    <th class="px-6 py-3 text-lg text-white">الدرجة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="border-t border-gray-200 hover:bg-indigo-50 transition duration-200">
+                        <td class="px-6 py-3"> @Html.DisplayFor(modelItem => item.StudentName)</td>
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.Grade)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

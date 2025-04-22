@@ -1,0 +1,90 @@
+﻿@model AddOrEditLectureVM
+@{
+    ViewData["Title"] = "إضافة محاضرة";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-5">
+                    <h2 class="mb-4 text-center text-primary fw-bold display-6">@ViewData["Title"]</h2>
+
+                    <form asp-action="SaveNew" asp-controller="Lecture" method="post">
+                        <input type="hidden" asp-for="CourseID" />
+                        @* <input type="hidden" asp-for="" /> *@
+
+                        <!-- حقل اسم المحاضرة -->
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label fw-semibold">عنوان المحاضرة</label>
+                            <input asp-for="Title" class="form-control shadow-sm" />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+
+                        <!-- حقل وقت المحاضرة -->
+                        <div class="form-group mb-3">
+                            <label asp-for="LectureTime" class="form-label fw-semibold">وقت المحاضرة</label>
+                            <input asp-for="LectureTime" class="form-control shadow-sm" />
+                            <span asp-validation-for="LectureTime" class="text-danger small"></span>
+                        </div>
+
+                        <!-- حقل وصف المحاضرة -->
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label fw-semibold">وصف المحاضرة</label>
+                            <input asp-for="Description" class="form-control shadow-sm" />
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="VideoURL" class="form-label fw-semibold">رابط الفيديو (Google Drive)</label>
+                            <input asp-for="VideoURL" class="form-control shadow-sm" placeholder="ضع رابط الفيديو من Google Drive هنا" />
+                            <span asp-validation-for="VideoURL" class="text-danger small"></span>
+                        </div>
+
+                        <!-- أزرار الإرسال -->
+                        <div class="d-flex justify-content-between mt-4 gap-3">
+                            <button type="submit" class="btn btn-success px-4 py-2 shadow-sm w-100 w-md-auto">إضافة</button>
+                            <!-- تعديل زر الرجوع ليمرر CourseID -->
+                            <a href="@Url.Action("GetLectures", "Lecture", new { id = Model.CourseID })"
+                               class="btn btn-outline-secondary px-4 py-2 shadow-sm w-100 w-md-auto">
+                                رجوع
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for hover effect and shadow -->
+<style>
+    .btn:hover {
+        background-color: #28a745 !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d !important;
+        color: white !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+    }
+
+    .form-control, .form-select {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+    }
+
+    /* Custom CSS for error message */
+    .text-danger {
+        color: #dc3545 !important; /* اللون الأحمر للرسالة */
+    }
+</style>

@@ -1,0 +1,35 @@
+﻿@using GoEdu.ViewModel
+@model List<CourseViewModel>
+
+<h2>جميع الكورسات</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>اسم الكورس</th>
+
+            <th>السعر</th>
+
+            <th>المدرب</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Name</td>
+
+                <td>@course.Price</td>
+
+                <td>
+                    @course.InstructorName
+                <td>
+
+                    <a href="/Course/Details">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

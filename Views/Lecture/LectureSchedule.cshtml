@@ -1,0 +1,140 @@
+﻿@* @model IEnumerable<GoEdu.ViewModel.VMLectureSchedule> *@
+
+@* @{ *@
+@*     ViewData["Title"] = "LectureSchedule"; *@
+@* } *@
+
+@* <h1>جدول الحصص </h1> *@
+
+
+@* <table class="table"> *@
+@*     <thead> *@
+@*         <tr> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.ID) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Title) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.CourseName) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.LectureTime) *@
+@*             </th> *@
+@*             <th></th> *@
+@*         </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@* @foreach (var item in Model) { *@
+@*         <tr> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.ID) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.Title) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.CourseName) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.LectureTime) *@
+@*             </td> *@
+@*         </tr> *@
+@* } *@
+@*     </tbody> *@
+@* </table> *@
+
+
+
+
+@* @model IEnumerable<GoEdu.ViewModel.VMLectureSchedule> *@
+
+@* @{ *@
+@*     ViewData["Title"] = "LectureSchedule"; *@
+@* } *@
+
+@* <h1 class="text-3xl font-bold text-center text-indigo-700 my-6">📚 جدول الحصص</h1> *@
+
+@* <div class="container mx-auto px-4"> *@
+@*     <div class="overflow-x-auto rounded-xl shadow-lg text-gray-800"> *@
+@*         <table class="table table-striped table-bordered w-full text-center border border-gray-200 bg-white shadow-sm"> *@
+@*             <thead class="bg-indigo-900 text-white text-lg"> *@
+@*                 <tr> *@
+@*                     <th class="py-3 px-4">#</th> *@
+@*                     <th class="py-3 px-4">العنوان</th> *@
+@*                     <th class="py-3 px-4">اسم الكورس</th> *@
+@*                     <th class="py-3 px-4">ميعاد المحاضرة</th> *@
+@*                 </tr> *@
+@*             </thead> *@
+@*             <tbody class="text-gray-800"> *@
+@*                 @foreach (var item in Model) *@
+@*                 { *@
+@*                     <tr class="hover:bg-indigo-50 transition"> *@
+@*                         <td class="py-2 px-4">@item.ID</td> *@
+@*                         <td class="py-2 px-4">@item.Title</td> *@
+@*                         <td class="py-2 px-4">@item.CourseName</td> *@
+@*                         <td class="py-2 px-4">@item.LectureTime</td> *@
+@*                     </tr> *@
+@*                 } *@
+@*             </tbody> *@
+@*         </table> *@
+@*     </div> *@
+@* </div> *@
+@using GoEdu.ViewModel
+@model IEnumerable<GoEdu.ViewModel.VMLectureSchedule>
+
+@{
+    ViewData["Title"] = "LectureSchedule";
+}
+
+<div class="container mx-auto mt-10 px-4">
+    <!-- Heading -->
+    <h1 class="text-center text-4xl font-extrabold text-indigo-800 mb-12 mt-5 mb-4">جدول الحصص</h1>
+
+    <!-- Schedule Table -->
+    <div class="overflow-x-auto shadow-lg rounded-lg bg-white mt-10">
+        <table class="table-auto w-full text-center border-collapse">
+            <thead class="bg-indigo-900">
+                <tr>
+                    <th class="px-6 py-3 text-lg text-white">ID</th>
+                    <th class="px-6 py-3 text-lg text-white">عنوان الحصة</th>
+                    <th class="px-6 py-3 text-lg text-white">اسم الكورس</th>
+                    <th class="px-6 py-3 text-lg text-white">وقت الحصة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="border-t border-gray-200 hover:bg-indigo-50 transition duration-200">
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.ID)</td>
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.Title)</td>
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.CourseName)</td>
+                        <td class="px-6 py-3">@Html.DisplayFor(modelItem => item.LectureTime)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center mt-8">
+        <a href="@Url.Action("DashBoard", "Student")" class="text-white bg-indigo-600 hover:bg-indigo-700 font-medium py-2 px-6 rounded-lg shadow transition duration-300">
+            رجوع
+        </a>
+    </div>
+
+</div>
+
+<!-- Tailwind + Custom Styling -->
+<style>
+    .table th, .table td {
+        text-align: center;
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
+
+    .table tr:hover {
+        background-color: #f3f4f6;
+    }
+</style>

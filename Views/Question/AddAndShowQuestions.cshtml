@@ -1,0 +1,132 @@
+﻿<div style="flex-direction: column;">
+    @model GoEdu.ViewModel.VMQuestionWithQuestions
+
+    @{
+        ViewData["Title"] = "إضافة سؤال";
+    }
+    <div class="flex justify-center items-center mt-20 mb-20">
+        <div class="flex w-full justify-evenly px-24 gap-2">
+            <!-- عدد المحاضرات -->
+            <div class="bg-indigo-900 p-3 rounded-lg shadow-xl text-white text-center transform hover:scale-105 transition duration-300 w-full sm:w-1/5 flex flex-col items-center justify-center h-24">
+                <p class="text-xl font-semibold text-white">عدد الأسئلة</p>
+                <strong class="text-xl font-semibold text-white">@Model.Questions.Count()</strong>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body p-5">
+                        <h2 class="mb-4 text-center text-primary fw-bold display-6">إضافة أسئلة</h2>
+                        <form asp-action="AddAndShowQuestions" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row g-3">
+                                <input type="hidden" asp-for="LectureId" class="form-control shadow-sm" />
+
+                                <!-- حقل المحتوى -->
+                                <div class="col-12">
+                                    <label asp-for="Content" class="form-label fw-semibold">المحتوى</label>
+                                    <input asp-for="Content" class="form-control shadow-sm" />
+                                    <span asp-validation-for="Content" class="text-danger small"></span>
+                                </div>
+
+                                <!-- حقل الإجابة النموذجية -->
+                                <div class="col-12">
+                                    <label asp-for="ModelAnswer" class="form-label fw-semibold">الإجابة النموذجية</label>
+                                    <input asp-for="ModelAnswer" class="form-control shadow-sm" />
+                                    <span asp-validation-for="ModelAnswer" class="text-danger small"></span>
+                                </div>
+
+                                <!-- حقل الخيار 1 -->
+                                <div class="col-12">
+                                    <label asp-for="Option1" class="form-label fw-semibold">الخيار 1</label>
+                                    <input asp-for="Option1" class="form-control shadow-sm" />
+                                    <span asp-validation-for="Option1" class="text-danger small"></span>
+                                </div>
+
+                                <!-- حقل الخيار 2 -->
+                                <div class="col-12">
+                                    <label asp-for="Option2" class="form-label fw-semibold">الخيار 2</label>
+                                    <input asp-for="Option2" class="form-control shadow-sm" />
+                                    <span asp-validation-for="Option2" class="text-danger small"></span>
+                                </div>
+
+                                <!-- حقل الخيار 3 -->
+                                <div class="col-12">
+                                    <label asp-for="Option3" class="form-label fw-semibold">الخيار 3</label>
+                                    <input asp-for="Option3" class="form-control shadow-sm" />
+                                    <span asp-validation-for="Option3" class="text-danger small"></span>
+                                </div>
+
+                                <!-- حقل الخيار 4 -->
+                                <div class="col-12">
+                                    <label asp-for="Option4" class="form-label fw-semibold">الخيار 4</label>
+                                    <input asp-for="Option4" class="form-control shadow-sm" />
+                                    <span asp-validation-for="Option4" class="text-danger small"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- زر الإرسال -->
+                            <div class="d-flex justify-content-between mt-4 gap-3">
+                                <input type="submit" value="إضافة" class="btn btn-primary px-4 py-2 shadow-sm w-100 w-md-auto" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body p-4">
+                        <h2 class="mb-4 text-center text-primary fw-bold">Questions List</h2>
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>الرقم</th>
+                                    <th>المحتوي</th>
+                                    <th>الااجابة النموذجية</th>
+                                    <th>الاختيار 1</th>
+                                    <th>الاختيار 2</th>
+                                    <th>الاختيار 3</th>
+                                    <th>الاختيار 4</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Questions)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.QuestionId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Content)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ModelAnswer)</td>
+
+                                        @foreach (var q in item.Options)
+                                        {
+                                            <td>@Html.DisplayFor(modelItem => q.Content)</td>
+                                        }
+
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Edit", new { id = item.QuestionId })" class="btn btn-info btn-sm me-2">Edit</a>
+                                            <a href="@Url.Action("Delete", new { id = item.QuestionId })" class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

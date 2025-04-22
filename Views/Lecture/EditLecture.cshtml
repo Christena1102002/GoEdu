@@ -1,0 +1,118 @@
+﻿@* @model GoEdu.ViewModel.VMLectureWithInstructorCourses *@
+
+@* @{ *@
+@*     ViewData["Title"] = "EditLecture"; *@
+@* } *@
+
+@* <h1>EditLecture</h1> *@
+
+@* <h4>LectureWithInstructorCoursesVM</h4> *@
+@* <hr /> *@
+@* <div class="row"> *@
+@*     <div class="col-md-4"> *@
+@*         <form asp-action="EditLecture" asp-controller="Lecture" method="post"> *@
+@*             <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="ID" class="control-label"></label> *@
+@*                 <input asp-for="ID" class="form-control" /> *@
+@*                 <span asp-validation-for="ID" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Title" class="control-label"></label> *@
+@*                 <input asp-for="Title" class="form-control" /> *@
+@*                 <span asp-validation-for="Title" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="VideoURL" class="control-label"></label> *@
+@*                 <input asp-for="VideoURL" class="form-control" /> *@
+@*                 <span asp-validation-for="VideoURL" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="LectureTime" class="control-label"></label> *@
+@*                 <input asp-for="LectureTime" class="form-control" /> *@
+@*                 <span asp-validation-for="LectureTime" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Description" class="control-label"></label> *@
+@*                 <textarea asp-for="Description" class="form-control"></textarea> *@
+@*                 <span asp-validation-for="Description" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="ExamId" class="control-label"></label> *@
+@*                 <input asp-for="ExamId" class="form-control" /> *@
+@*                 <span asp-validation-for="ExamId" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="CourseID" class="control-label"></label> *@
+@*                 <input asp-for="CourseID" class="form-control" /> *@
+@*                 <span asp-validation-for="CourseID" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <input type="submit" value="Save" class="btn btn-primary" /> *@
+@*             </div> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@
+
+@* <div> *@
+@*     <a asp-action="Index">Back to List</a> *@
+@* </div> *@
+
+@* @section Scripts { *@
+@*     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+@* } *@
+@model AddOrEditLectureVM
+
+@{
+    ViewData["Title"] = "تعديل البيانات";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-5">
+                    <h2 class="mb-4 text-center text-primary fw-bold display-6">@ViewData["Title"]</h2>
+                    <form method="post" asp-action="SaveEdit" asp-controller="Lecture">
+                        <input type="hidden" asp-for="LctID" />
+                        <input type="hidden" asp-for="CourseID" />
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label asp-for="Title" class="form-label fw-semibold">عنوان المحاضرة</label>
+                                <input asp-for="Title" class="form-control shadow-sm" />
+                                <span asp-validation-for="Title" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="LectureTime" class="form-label fw-semibold">وقت المحاضرة</label>
+                                <input asp-for="LectureTime" class="form-control shadow-sm" />
+                                <span asp-validation-for="LectureTime" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Description" class="form-label fw-semibold">وصف المحاضرة</label>
+                                <input asp-for="Description" class="form-control shadow-sm" />
+                                <span asp-validation-for="Description" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="VideoURL" class="form-label fw-semibold">رابط الفيديو (Google Drive)</label>
+                                <input asp-for="VideoURL" class="form-control shadow-sm" placeholder="ضع رابط الفيديو من Google Drive هنا" />
+                                <span asp-validation-for="VideoURL" class="text-danger small"></span>
+                            </div>
+                            <!-- أزرار الإرسال -->
+                            <div class="d-flex justify-content-between mt-4 gap-3">
+                                <button type="submit" class="btn btn-success px-4 py-2 shadow-sm w-100 w-md-auto">حفظ</button>
+                                <!-- تعديل زر الرجوع ليمرر CourseID -->
+                                <a href="@Url.Action("GetLectures", "Lecture", new { id = Model.CourseID })"
+                                   class="btn btn-outline-secondary px-4 py-2 shadow-sm w-100 w-md-auto">
+                                    رجوع
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

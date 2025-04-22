@@ -1,0 +1,31 @@
+﻿@model List<StudentWithInstructorVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<table class="table table-hover table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>اسم الطالب</th>
+        <th>الأيميل</th>
+        <th>رقم التليفون </th>
+        <th>رقم ولي الأمر</th>
+
+        <th>تفاصيل</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.StdID</td>
+            <td>@item.StdName</td>
+            <td>@item.stdEmail</td>
+            <td>@item.StdPhone</td>
+            <td>@item.PrtPhone</td>
+            <td>
+                <a asp-action="CourseDetails" asp-controller="Course">Details</a>
+            </td>
+        </tr>
+    }
+</table>

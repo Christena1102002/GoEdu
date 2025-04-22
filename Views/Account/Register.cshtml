@@ -1,0 +1,224 @@
+﻿
+@model GoEdu.ViewModel.VMRegister
+
+@{
+    ViewData["Title"] = "Register";
+}
+@{
+    Layout = "_Layout";
+}
+
+<style>
+    /* نفس تنسيقاتك السابقة بالضبط */
+    body {
+        background: linear-gradient(135deg, #0d1b2a, #1e2f5b, #2c7aff);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        font-family: 'Tajawal', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .register-container {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        padding: 50px;
+        width: 100%;
+        max-width: 450px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .form-title {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-text {
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding-left: 40px;
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        height: 50px;
+        font-size: 1rem;
+        transition: all 0.3s;
+        margin-bottom: 20px;
+    }
+
+        .form-control:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+    .form-icon {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #f97316;
+        border: none;
+        border-radius: 30px;
+        padding: 15px;
+        width: 100%;
+        font-size: 1.2rem;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #ff9f45;
+        }
+
+    .footer-link {
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+    .btn-primary:active {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .radio-label {
+        color: #ffffff;
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+
+    .radio-group {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 20px;
+        justify-content: space-between;
+    }
+
+        .radio-group .form-check {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+        }
+
+            .radio-group .form-check input {
+                margin-left: 10px;
+            }
+</style>
+<div class="register-container">
+    <div class="form-title">أنشئ حسابك</div>
+    <div class="form-text">من فضلك أكمل بياناتك لتسجيل حساب جديد</div>
+
+    <form asp-action="Register" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- الاسم -->
+        <div class="mb-4 position-relative">
+            <input asp-for="UserName" class="form-control" placeholder="الاسم الكامل" />
+            <i class="fa fa-user form-icon"></i>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <!-- البريد الإلكتروني -->
+        <div class="mb-4 position-relative">
+            <input asp-for="Email" class="form-control" placeholder="البريد الإلكتروني" />
+            <i class="fa fa-envelope form-icon"></i>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <!-- رقم التليفون -->
+        <div class="mb-4 position-relative">
+            <input asp-for="Phone" class="form-control" placeholder="رقم التليفون" />
+            <i class="fa fa-phone form-icon"></i>
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <!-- كلمة المرور -->
+        <div class="mb-4 position-relative">
+            <input asp-for="Password" class="form-control" placeholder="••••••••" />
+            <i class="fa fa-lock form-icon"></i>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <!-- تأكيد كلمة المرور -->
+        <div class="mb-4 position-relative">
+            <input asp-for="ConfirmPassword" class="form-control" placeholder="تأكيد كلمة المرور" />
+            <i class="fa fa-lock form-icon"></i>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <!-- العنوان -->
+        <div class="mb-4 position-relative">
+            <input asp-for="Address" class="form-control" placeholder="العنوان" />
+            <i class="fa fa-location-dot form-icon"></i>
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <!-- السن -->
+        <div class="mb-4 position-relative">
+            <input asp-for="Age" class="form-control" placeholder="السن" />
+            <i class="fa fa-cake-candles form-icon"></i>
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+        <!-- صورة -->
+        <div class="mb-4 position-relative">
+            <input asp-for="ImageUrl" class="form-control" placeholder="رابط الصورة (اختياري)" />
+            <i class="fa fa-image form-icon"></i>
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+
+        <!-- نوع المستخدم -->
+        <div class="radio-group">
+            <div class="form-check form-check-inline">
+                <label class="radio-label" for="student">طالب</label>
+                <input class="form-check-input" type="radio" asp-for="IsInstructor" value="false" id="student" />
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="radio-label" for="teacher">مدرس</label>
+                <input class="form-check-input" type="radio" asp-for="IsInstructor" value="true" id="teacher" />
+            </div>
+        </div>
+
+        <!-- زر التسجيل -->
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-user-plus"></i> تسجيل
+        </button>
+
+        <!-- رابط تسجيل الدخول -->
+        <div class="text-center mt-4">
+            <p class="text-white">
+                لديك حساب بالفعل؟
+                <a href="@Url.Action("Login", "Account")" class="footer-link">تسجيل الدخول</a>
+            </p>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
